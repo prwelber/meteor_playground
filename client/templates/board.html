@@ -1,0 +1,20 @@
+<template name="board">
+        {{> addPlayerForm}}
+
+
+    <h4>Number of players: {{countPlayers}}</h4>
+    <ul>
+        {{#each player}}
+            <li class="player {{isSelected}}">{{name}}: {{score}}</li>
+        {{/each}}
+    </ul>
+    <input type="button" class="remove" value="Remove Player">
+    <br />
+    <textarea class="textarea" name="textarea" id="" cols="30" rows="10"></textarea>
+
+    {{#unless isSelected}}
+        <br /><input type="button" class="increment" value="Give 5 Points">
+        <br /><input type="button" class="inc1" value="Give 1 Point">
+        <br /><input type="button" class="decrement" value="Take 5 Points">
+    {{/unless}}
+</template>
