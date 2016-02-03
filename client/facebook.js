@@ -1,19 +1,23 @@
 if(Meteor.isClient) {
 
+    Meteor.subscribe('fbData')
+    
     Template.facebook.events({
         'click .fb-button': function (account, url) {
-            let token = 'CAAN4vFUE2ZAgBAADGaA5sn6HBcJm6ZBEqmRGJPkIiBdv8NOb1fulOE9SkMY1Mok0hUGDdP5NCRlYnkLJFUmai981KYcGZCyikhSxFD9dPSTeZAVvHiNVoJAkU5Xvxao5l0bSumX8KOK012mjV8h4B0ubbrGdTb5lXfQMh0bQEieojKnjJ9wxCc8OVoJZBEauIiN8dpsYZBPaRjEshAfH9v';
-            let accountNumber = 886755114707917;
-            HTTP.call('GET', 'https://graph.facebook.com/v2.5/act_'+accountNumber+'/adsets?fields=name,campaign,end_time,start_time&access_token='+token+'', function(err, response) {
+            let token = 'CAAN4vFUE2ZAgBAEcZBGcZBSwVRZArDB2tdBW7OZAbIXKDbx29i2zvR2sVOS3kZAMz1kv7Q75LPKCLXjcqEKrgZC6ZBopmLEEZARjyEba4TKIkxQLQuquYz3uZBPhmm1w0tVlCQklQoubqoK54AvRs1KaAZB0lZAJU1XqC4okfjerKxZCSezPhqrcPXZAmRZCdsWoGcMZBE8z9bSZCKZBjdbHF09IWWpIRM';
+            let accountNumber = 903219059728189;
+            HTTP.call('GET', 'https://graph.facebook.com/v2.5/act_'+accountNumber+'/adsets?fields=name,campaign,end_time,start_time,insights{spend,cpm,reach}&access_token='+token+'', function(err, response) {
                     if (err) {console.log(err)}
-                    console.log(response.data.data)
-                    response.data.data.forEach(function(el) {
-                        console.log(el.name)
-                        console.log(el.start_time)
-                        console.log(el.end_time)
-                    })
+                    let fbData = response.data.data
+                    Meteor.call('insertFbData', fbData)
             });
         }
+    });
+
+    Template.facebook.helpers({
+      'adsetData': function () {
+        return FacebookData.find()
+      }
     });
 
 }

@@ -2,6 +2,10 @@
 if(Meteor.isClient) {
   Meteor.subscribe('thePlayers')
 
+  Accounts.ui.config({
+    passwordSignupFields: 'USERNAME_ONLY'
+  });
+
   FlowRouter.route('/', {
     name: 'mainLayout',
     action: function () {
@@ -12,7 +16,7 @@ if(Meteor.isClient) {
   FlowRouter.route('/test', {
     name: 'test',
     action: function() {
-      BlazeLayout.render('test', {content: 'Phil', route: 'route', framework: 'Meteor'})
+      BlazeLayout.render('test', {route: 'route', framework: 'Meteor', name: 'Phil'});
     }
   });
 
@@ -89,7 +93,7 @@ if(Meteor.isClient) {
     }
   });
 
-  Template.body.helpers({
+  Template.mainLayout.helpers({
     'playerName': function () {
       try {
         let playerId = Session.get('selectedPlayer')
@@ -101,12 +105,13 @@ if(Meteor.isClient) {
     }
   });
 
-  Template.body.events({
+  Template.mainLayout.events({
     'click h1': function () {
       Session.set('selectedPlayer', '')
     }
   });
 }
+
 
 if (Meteor.isServer) {
 }

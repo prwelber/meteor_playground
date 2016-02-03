@@ -21,3 +21,4 @@ accounts-ui
 kadira:flow-router
 kadira:blaze-layout
 http
+momentjs:moment
