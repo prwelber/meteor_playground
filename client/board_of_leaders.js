@@ -15,15 +15,22 @@ if(Meteor.isClient) {
 
   FlowRouter.route('/test', {
     name: 'test',
-    action: function() {
+    action: function () {
       BlazeLayout.render('test', {route: 'route', framework: 'Meteor', name: 'Phil'});
     }
   });
 
   FlowRouter.route('/facebook', {
     name: 'facebook',
-    action: function() {
+    action: function () {
       BlazeLayout.render('facebook')
+    }
+  })
+
+  FlowRouter.route('/accounts', {
+    name: 'accounts',
+    action: function () {
+      BlazeLayout.render('accounts')
     }
   })
 
@@ -115,4 +122,3 @@ if(Meteor.isClient) {
 
 if (Meteor.isServer) {
 }
-
