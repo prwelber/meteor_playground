@@ -19,7 +19,7 @@ if(Meteor.isClient) {
   FlowRouter.route('/facebook', {
     name: 'facebook',
     action: function() {
-      BlazeLayout.render('facebook')
+      BlazeLayout.render('facebook', {content: 'test'})
     }
   })
 
