@@ -1,9 +1,9 @@
 <template name='accounts'>
   <h1>List of TS Accounts</h1>
   <input type="button" name="account-data" value="Click For Accounts" class="fb-accounts-button">
-  {{#each accountData}}
+  {{#each accountsData}}
     <h3>{{name}}</h3>
-    <h5>{{accountNumber}}</h5>
+    <h5><a href="/accounts/{{_id}}">{{account_id}}</a></h5>
   {{/each}}
 
 

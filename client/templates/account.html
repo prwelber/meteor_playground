@@ -1,0 +1,10 @@
+<template name="account">
+    <h1>Individual Account Page</h1>
+    <h3>{{getData.name}}</h3>
+    <p class="account-number">{{getData.account_id}}</p>
+
+    <button class="get-campaigns">Get Campaigns</button>
+
+    <input type="hidden" value={{campaignData}}>
+    {{!-- {{campaignData}} --}}
+</template>
