@@ -32,19 +32,10 @@ Meteor.publish('thePlayers', function () {
           inserted: moment().format().slice(0,10)
         });
       });
-    },
-    'insertFbAccountsData': function (data) {
-      data.forEach(function (el) {
-        console.log(data);
-      })
     }
-
-
   });
+
 
 Meteor.publish('fbData', function () {
   return FacebookData.find();
-});
-Meteor.publish("fbAccountsData", function(){
-  return FacebookAccountsData.find();
 });

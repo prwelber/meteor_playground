@@ -8,9 +8,9 @@ if(Meteor.isClient) {
         'click .fb-button': function (account, url) {
             let token = 'CAAN4vFUE2ZAgBAL8iDZBFiZAk1JZBhNbfv0OscQZAeYFiY1B323NZCUCstGN8oiUsBBsaj6RZCmZBUrP955yXm8cibhZC5ZBNidE5qf0zqjVLsS53zF4XNtD5SIKxl18ySlfIDEKwsLGIePeQTLG9ionkf343O1aw4AcHuYLFaee8jIHjP5woIEWBddwvowuVcuFAZD';
             let accountNumber = 903219059728189;
-            HTTP.call('GET', 'https://graph.facebook.com/v2.5/act_'+accountNumber+'/adsets?fields=name,campaign,end_time,start_time,insights{spend,cpm,reach}&access_token='+token+'', function(err, response) {
+            HTTP.call('GET', 'https://graph.facebook.com/v2.5/act_'+accountNumber+'/adsets?fields=name,campaign,end_time,start_time,insights{spend,cpm,reach}&access_token='+token+'', function(err, accountResponse) {
                     if (err) {console.log(err)};
-                    let fbData = response.data.data
+                    let fbData = accountResponse.data.data
                     Meteor.call('insertFbData', fbData)
             });
         }
@@ -22,36 +22,53 @@ if(Meteor.isClient) {
       }
     });
 
+
+
+    // Maybe I can try doing this on the server - just put a Meteor.call method
+    // here on the click and make the call server side
     Template.accounts.events({
       'click .fb-accounts-button': function () {
-        let token = 'CAAN4vFUE2ZAgBAJkyAZA0h2eVrnkzZCNNVUeAvvnYcw9tvZB1cKC84qXMtD1N9HCMMLqqnHJJmj0JxYDlXG5qDtTaRow9uDZCqZATZBaZAbhHZAQlWbtXZBUnk6ORB7jLyRpVkscv47hKsOt1LHK09h3MDZA371oXKFnKhZAGbXZAvl7ZCfPfdxOSsRjHYYYG04Ij5IAkZD';
-        accountsDataArray = []
-
-        HTTP.call('GET', 'https://graph.facebook.com/v2.5/678433138873450/adaccounts?fields=name&limit=50&access_token='+token+'', function (err, response) {
-            if (err) {console.log(err)};
-            let accountsData = response;
-            console.log('first api call response:', response);
-            console.log('next url:', response.data.paging['next'])
-            accountsDataArray.push(response.data.data)
-
-            while (true) {
-              try {
-                HTTP.call('GET', accountsData.data.paging['next'], function (err, response) {
-                  if (err) {console.log(err)};
-                  let accountsData = response;
-                  accountsDataArray.push(response.data.data);
-                })
-              }
-              catch (e) {
-                console.log(e);
-                console.log('no next page');
-                break;
-              }
-            }
-            Meteor.call('insertFbAccountsData', accountsDataArray);
-            console.log(accountsDataArray)
-        });
+          Meteor.call('getFbAccountData');
       }
+
+    //     HTTP.call('GET', , function (err, fbResponse) {
+    //         if (err) {console.log(err)};
+    //         accountsData = fbResponse;
+    //         console.log('first api call response:', fbResponse);
+    //         console.log(fbResponse.data.data);
+    //         console.log('next url:', fbResponse.data.paging['next'])
+    //         accountsDataArray.push(fbResponse.data.data)
+    //     });
+    //         let counter = 0
+    //         while (true) {
+    //           try {
+    //             console.log('calling the "next" page');
+    //             throw 'test error'
+    //             HTTP.get(accountsData.data.paging['next'], function (err, response) {
+    //               if (err) {
+    //                 console.log(err)
+    //                 throw 'an error occurred in the HTTP call';
+    //               } else if (counter >= 4) {
+    //                 throw 'error because count got to 4';
+    //               } else {
+    //                 console.log('this is what we want');
+    //                 accountsData = response;
+    //                 accountsDataArray.push(accountsData.data.data);
+    //                 counter++;
+    //                 throw 'this was thrown after pushing count up'
+    //               }
+    //             })
+    //           }
+    //           catch (e) {
+    //             console.log(e);
+    //             console.log('no next page');
+    //             break;
+    //           }
+    //         }
+      //
+    //         Meteor.call('insertFbAccountsData', accountsDataArray);
+    //         console.log('accountsDataArray at end of method:', accountsDataArray)
+    //   }
     });
 
     Template.accounts.helpers({
