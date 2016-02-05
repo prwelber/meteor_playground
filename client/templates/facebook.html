@@ -1,7 +1,20 @@
 <template name="facebook">
-
+    <a href="/">Home</a>
     <input type="text" placeholder="account number" class="fb-account-num">
     <input type="button" value="Click for FB Data" class="fb-button">
 
 {{> test}}
+    {{#each adsetData}}
+        <br /><br />
+        <h4>{{name}}</h4>
+        {{start}} -- {{end}}
+        <p><strong>Insights:</strong></p>
+        <p>Reach: {{reach}}</p>
+        <p>CPM: {{cpm}}</p>
+        <p>Spend: {{spend}}</p>
+        <p>Last Updated: {{inserted}}</p>
+
+
+    {{/each}}
+
 </template>
