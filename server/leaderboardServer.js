@@ -1,7 +1,4 @@
-Meteor.publish('thePlayers', function () {
-    let currentUserId = this.userId;
-    return PlayerList.find({createdBy: currentUserId});
-  });
+
 
   Meteor.methods({
     'insertPlayerData': function (obj) {
@@ -32,11 +29,18 @@ Meteor.publish('thePlayers', function () {
           inserted: moment().format().slice(0,10)
         });
       });
+    },
+    'getAccountInfo': function (num) {
+      FacebookAccountsData.find({account_id: num})
     }
-
 
   });
 
+
 Meteor.publish('fbData', function () {
-  return FacebookData.find()
+  return FacebookData.find();
 });
+Meteor.publish('thePlayers', function () {
+    let currentUserId = this.userId;
+    return PlayerList.find({createdBy: currentUserId});
+  });

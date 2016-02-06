@@ -6,26 +6,7 @@ if(Meteor.isClient) {
     passwordSignupFields: 'USERNAME_ONLY'
   });
 
-  FlowRouter.route('/', {
-    name: 'mainLayout',
-    action: function () {
-      BlazeLayout.render('mainLayout', {content: 'board'});
-    }
-  });
 
-  FlowRouter.route('/test', {
-    name: 'test',
-    action: function() {
-      BlazeLayout.render('test', {route: 'route', framework: 'Meteor', name: 'Phil'});
-    }
-  });
-
-  FlowRouter.route('/facebook', {
-    name: 'facebook',
-    action: function() {
-      BlazeLayout.render('facebook')
-    }
-  })
 
   Template.board.helpers({
     'player': function () {
@@ -115,4 +96,3 @@ if(Meteor.isClient) {
 
 if (Meteor.isServer) {
 }
-
