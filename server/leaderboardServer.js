@@ -34,7 +34,7 @@ Meteor.publish('thePlayers', function () {
       });
     }
 
-    
+
   });
 
 Meteor.publish('fbData', function () {
