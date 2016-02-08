@@ -1,3 +1,4 @@
+
 if(Meteor.isClient) {
 
 
@@ -11,12 +12,16 @@ if(Meteor.isClient) {
     });
 
 
+    Template.account.onRendered(function () {
+
+    });
+
 
     Template.account.events({
         'click .get-campaigns': function () {
             var num = document.querySelector('.account-number').textContent
-            console.log(num)
-            Meteor.call('getCampaignData', num)
+            console.log(num);
+            Meteor.call('getCampaignData', num);
         }
     });
 
